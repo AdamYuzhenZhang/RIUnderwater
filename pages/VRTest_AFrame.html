@@ -24,14 +24,14 @@
 
             function run () {
                 if(AFRAME.utils.device.isMobile()) {
-                    //document.querySelector('#splash').style.display = 'flex';
-                    //document.querySelector('#splash').addEventListener('click', function () {
-                    //    playVideo();
-                    //    this.style.display = 'none';
-                    //})
-                    playVideo();
+                    document.querySelector('#splash').style.display = 'flex';
+                    document.querySelector('#splash').addEventListener('click', function () {
+                        playVideo();
+                        this.style.display = 'none';
+                    })
+                    //playVideo();
                 } else {
-                    playVideo();
+                    //playVideo();
                 }
             }
 
@@ -40,6 +40,101 @@
                 videoShere.components.material.material.map.image.play();
             }
         })
+    </script>
+
+    <script>
+        /* global AFRAME */
+        AFRAME.registerComponent('play-button', {
+            schema: {
+                htmlSrc: {type: 'selector'},
+                startOpened: {default: false}
+            },
+            init: function () {
+                this.createInfoButton(this.toggleInfoMessage);
+                console.debug("init function called");
+                this.addStyles();
+            },
+            addStyles: function () {
+                var css =
+                    '.a-info-message{border-radius: 10px; position: absolute; width: 400px;' +
+                    'height: 320px; background-color: white; border: 3px solid rgba(0,0,0,.75);' +
+                    'bottom: 22px; left: 22px; color: rgb(51, 51, 51); padding: 20px 15px 0 15px;' +
+                    'font-size: 11pt; line-height: 20pt;}' +
+                    '.a-info-message a{border-bottom: 1px solid rgba(53,196,232,.15); color: #1497b8;' +
+                    'position: relative; text-decoration: none; transition: .05s ease;}' +
+                    '@media only screen and (min-width: 1200px) {' +
+                    '.a-info-message {font-size: 12pt}}' +
+                    '@media only screen and (max-width: 600px) {' +
+                    '.a-info-message {left: 20px; right: 20px; bottom: 60px; width: auto}}' +
+                    '@media only screen and (max-height: 600px) {' +
+                    '.a-info-message {left: 20px; bottom: 20px; height: 250px}}' +
+                    '.a-close-button-info{width: 25px; height: 25px; padding: 0;' +
+                    'top: 10px; right: 10px; position: absolute; color: white;' +
+                    'font-size: 12px; line-height: 12px; border: none; background-color: #ef2d5e;' +
+                    'border-radius: 5px; font-weight: medium}' +
+                    '.a-close-button-info:hover{background-color: #b32146; color: white}' +
+                    '.a-info-message-container {position: absolute; left: 80px; bottom: 20px;}' +
+                    '.a-info-message-button {background: rgba(0, 0, 0, 0.20) ' + ' 50% 50% no-repeat;}' +
+                    '.a-info-message-button {background-size: 90% 90%; border: 0; bottom: 0; cursor: pointer; min-width: 58px; min-height: 34px; padding-right: 0; padding-top: 0; position: absolute; right: 0; transition: background-color .05s ease; -webkit-transition: background-color .05s ease; z-index: 9999; border-radius: 8px; touch-action: manipulation;}' +
+                    '.a-info-message-button:active, .a-info-message-button:hover {background-color: #ef2d5e;}' +
+
+                    '.a-upload-model  {box-sizing: border-box; display: inline-block; height: 34px; padding: 0; width: 70%;' +
+                    'bottom: 20px; left: 15%; right: 15%; position: absolute; color: white;' +
+                    'font-size: 12px; line-height: 12px; border: none;' +
+                    'border-radius: 5px}' +
+                    '.a-upload-model.hidden {display: none}' +
+                    '.a-upload-model-button {cursor: pointer; padding: 0px 2px 0 2px; font-weight: bold; color: #666; border: 3px solid #666; box-sizing: border-box; vertical-align: middle; width: 25%; max-width: 110px; border-radius: 10px; height: 34px; background-color: white; margin: 0;}' +
+                    '.a-upload-model-button:hover {border-color: #ef2d5e; color: #ef2d5e}' +
+                    '.a-upload-model-input {color: #666; vertical-align: middle; padding: 0px 10px 0 10px; text-transform: uppercase; border: 0; width: 75%; height: 100%; border-radius: 10px; margin-right: 10px}' +
+                    '@media only screen and (max-width: 800px) {' +
+                    '.a-upload-model {margin: auto;}' +
+                    '.a-upload-model-input {width: 70%;}}' +
+                    '@media only screen and (max-width: 700px) {' +
+                    '.a-upload-model {display: none}}';
+                var style = document.createElement('style');
+                if (style.styleSheet) {
+                    style.styleSheet.cssText = css;
+                } else {
+                    style.appendChild(document.createTextNode(css));
+                }
+                document.getElementsByTagName('head')[0].appendChild(style);
+            },
+            toggleInfoMessage: function () {
+                var video = document.getElementById("video");
+                var videoShere = document.getElementById("videoShere");
+                if (!(video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2)){
+                    video.play();
+                    videoShere.components.material.material.map.image.play();
+                } else {
+                    video.pause();
+                    videoShere.components.material.material.map.image.pause();
+                }
+            },
+            createInfoButton: function (onClick) {
+                var infoButton;
+                var wrapper;
+                console.debug("on click called, message container added");
+                // Create elements.
+                wrapper = document.createElement('div');
+                wrapper.classList.add('a-info-message-container');
+                //wrapper.classList.add('a-upload-model-button');
+                this.infoButton = infoButton = document.createElement('button');
+                infoButton.className = 'a-info-message-button';
+                //infoButton.className = 'a-upload-model-button';
+
+                wrapper.innerHTML = "Play Video";
+                infoButton.setAttribute('title', 'Play Video');
+                // Insert elements.
+                wrapper.appendChild(infoButton);
+                infoButton.addEventListener('click', function (evt) {
+                    onClick();
+                    evt.stopPropagation();
+                });
+                this.el.sceneEl.appendChild(wrapper);
+
+
+            },
+        });
     </script>
 </head>
 <body>
@@ -50,7 +145,7 @@
     </header>
     <!-- Main -->
     <div id="main">
-        <a-scene>
+        <a-scene play-button>
             <a-assets>
                 <video id="video" preload="auto"
                        src="https://cdn.aframe.io/360-video-boilerplate/video/city.mp4" autoplay loop="true"
