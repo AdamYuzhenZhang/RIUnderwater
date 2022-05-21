@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GPS Location Test</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/AdamYuzhenZhang/AdamYuzhenZhang.github.io/assets/css/main.css" />
+    <noscript>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/AdamYuzhenZhang/AdamYuzhenZhang.github.io/assets/css/noscript.css" />
+    </noscript>
+    <script>
+        function showPosition() {
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
+                    document.getElementById("result").innerHTML = positionInfo;
+                });
+            } else {
+                alert("Sorry, your browser does not support HTML5 geolocation.");
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="wrapper">
+    <!-- Header -->
+    <header id="header">
+
+    </header>
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+            <h1>Roosevelt Island Underwater</h1>
+            <div id="result">
+                <!--Position information will be inserted here-->
+            </div>
+            <button type="button" onclick="showPosition();">Show Position</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
