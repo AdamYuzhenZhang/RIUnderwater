@@ -105,9 +105,11 @@
                 if (!(video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2)){
                     video.play();
                     videoShere.components.material.material.map.image.play();
+                    document.body.requestFullscreen();
                 } else {
                     video.pause();
                     videoShere.components.material.material.map.image.pause();
+                    document.exitFullscreen();
                 }
             },
             createInfoButton: function (onClick) {
