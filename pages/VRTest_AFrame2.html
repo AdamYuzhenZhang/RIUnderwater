@@ -24,11 +24,12 @@
 
             function run () {
                 if(AFRAME.utils.device.isMobile()) {
-                    document.querySelector('#splash').style.display = 'flex';
-                    document.querySelector('#splash').addEventListener('click', function () {
-                        playVideo();
-                        this.style.display = 'none';
-                    })
+                    //document.querySelector('#splash').style.display = 'flex';
+                    //document.querySelector('#splash').addEventListener('click', function () {
+                    //    playVideo();
+                    //    this.style.display = 'none';
+                    //})
+                    playVideo();
                 } else {
                     playVideo();
                 }
