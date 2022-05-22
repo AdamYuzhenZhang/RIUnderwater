@@ -96,13 +96,16 @@
                 var video = document.getElementById("video");
                 var videoShere = document.getElementById("videoShere");
                 if (!(video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2)){
+                    //console.log("changing video playback rate");
+                    //console.log(video.playbackRate);
                     video.play();
                     videoShere.components.material.material.map.image.play();
-                    document.body.requestFullscreen();
+                    //video.playbackRate = 3;
+                    //document.body.requestFullscreen();
                 } else {
                     video.pause();
                     videoShere.components.material.material.map.image.pause();
-                    document.exitFullscreen();
+                    //document.exitFullscreen();
                 }
             },
             createInfoButton: function (onClick) {
