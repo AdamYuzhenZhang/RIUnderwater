@@ -14,7 +14,9 @@
             if(navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
-                    document.getElementById("result").innerHTML = positionInfo;
+                    document.getElementById("result").innerHTML = positionInfo;                console.log(GeolocationCoordinates.speed);
+                    console.log(position.coords.speed);
+
                 });
                 console.log(GeolocationCoordinates);
                 console.log(GeolocationCoordinates.speed);

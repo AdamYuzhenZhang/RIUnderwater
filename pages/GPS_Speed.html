@@ -20,7 +20,7 @@
   var variable1 = document.getElementById("paraID");
 
   function getlocation() {
-    navigator.geolocation.getCurrentPosition(showLoc);
+    navigator.geolocation.watchPosition(showLoc);
   }
 
   function showLoc(pos) {
