@@ -20,8 +20,9 @@
                 if(AFRAME.utils.device.isMobile()) {
                     //document.querySelector('#splash').style.display = 'flex';
                     document.querySelector("a-scene").addEventListener('click', function () {
+                        console.log("clicked to play video");
                         playVideo();
-                        this.style.display = 'none';
+                        //this.style.display = 'none';
                     })
                     //playVideo();
                 } else {
