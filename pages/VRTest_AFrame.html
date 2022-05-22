@@ -1,15 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>360 VR Test</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/AdamYuzhenZhang/AdamYuzhenZhang.github.io/assets/css/main.css" />
-    <noscript>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/AdamYuzhenZhang/AdamYuzhenZhang.github.io/assets/css/noscript.css" />
-    </noscript>
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
             var scene = document.querySelector("a-scene");
@@ -133,30 +126,19 @@
                     evt.stopPropagation();
                 });
                 this.el.sceneEl.appendChild(wrapper);
-
-
             },
         });
     </script>
 </head>
 <body>
-<div id="wrapper">
-    <!-- Header -->
-    <header id="header">
-
-    </header>
-    <!-- Main -->
-    <div id="main">
-        <a-scene play-button>
-            <a-assets>
-                <video id="video" preload="auto"
-                       src="https://cdn.aframe.io/360-video-boilerplate/video/city.mp4" autoplay loop="true"
-                       crossOrigin="anonymous" muted playsinline></video>
-            </a-assets>
-            <a-videosphere id="videoShere" loop="true" src="#video" rotation="0 180 0 "></a-videosphere>
-            <a-entity camera="userHeight: 1.6" look-controls cursor="rayOrigin: mouse"></a-entity>
-        </a-scene>
-    </div>
-</div>
+<a-scene play-button>
+    <a-assets>
+        <video id="video" preload="auto"
+               src="https://cdn.aframe.io/360-video-boilerplate/video/city.mp4" autoplay loop="true"
+               crossOrigin="anonymous" muted playsinline></video>
+    </a-assets>
+    <a-videosphere id="videoShere" loop="true" src="#video" rotation="0 180 0 "></a-videosphere>
+    <a-entity camera="userHeight: 1.6" look-controls cursor="rayOrigin: mouse"></a-entity>
+</a-scene>
 </body>
 </html>
