@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width,initial-scale=1">
+</head>
+
+<body>
+<h2 style="color:green">GPS Speed</h2>
+<p><b> Displaying Speed in MPS</b></p>
+
+<button onclick="getlocation()"> Click Me </button>
+<p id="paraID"></p>
+
+
+<script>
+  var variable1 = document.getElementById("paraID");
+
+  function getlocation() {
+    navigator.geolocation.getCurrentPosition(showLoc);
+  }
+
+  function showLoc(pos) {
+    variable1.innerHTML = "Speed: "
+            + pos.coords.speed;
+  }
+</script>
+</body>
+
+</html>
