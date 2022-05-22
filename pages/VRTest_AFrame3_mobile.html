@@ -18,11 +18,11 @@
 
             function run () {
                 if(AFRAME.utils.device.isMobile()) {
-                    //document.querySelector('#splash').style.display = 'flex';
-                    //document.querySelector('#splash').addEventListener('click', function () {
-                    //    playVideo();
-                    //    this.style.display = 'none';
-                    //})
+                    document.querySelector('#splash').style.display = 'flex';
+                    document.querySelector('#splash').addEventListener('click', function () {
+                        playVideo();
+                        this.style.display = 'none';
+                    })
                     //playVideo();
                 } else {
                     playVideo();
@@ -37,6 +37,9 @@
     </script>
 </head>
 <body>
+<div id="splash">
+    <div id="start-button">Start</div>
+</div>
 <a-scene>
     <a-assets>
         <video id="video" preload="auto"
