@@ -16,6 +16,16 @@
                     var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
                     document.getElementById("result").innerHTML = positionInfo;
                 });
+                console.log(GeolocationCoordinates);
+                console.log(GeolocationCoordinates.speed);
+
+                if(GeolocationCoordinates){
+                    //var speed = GeolocationCoordinates.speed;
+                    var speedInfo = "Your current speed is (" + GeolocationCoordinates.speed + ")";
+                    if (speedInfo){
+                        document.getElementById("speedResult").innerHTML = speedInfo;
+                    }
+                }
             } else {
                 alert("Sorry, your browser does not support HTML5 geolocation.");
             }
@@ -23,6 +33,7 @@
             setTimeout(showPosition, 100);
         }
     </script>
+
 </head>
 <body>
 <div id="wrapper">
@@ -36,6 +47,9 @@
             <h1>Roosevelt Island Underwater</h1>
             <div id="result">
                 <!--Position information will be inserted here-->
+            </div>
+            <div id="speedRsesult">
+                <!--Speed information will be inserted here-->
             </div>
             <button type="button" onclick="showPosition();">Show Position</button>
         </div>
