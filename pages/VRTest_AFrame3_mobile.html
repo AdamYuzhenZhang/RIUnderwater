@@ -18,8 +18,8 @@
 
             function run () {
                 if(AFRAME.utils.device.isMobile()) {
-                    document.querySelector('#splash').style.display = 'flex';
-                    document.querySelector('#splash').addEventListener('click', function () {
+                    //document.querySelector('#splash').style.display = 'flex';
+                    document.querySelector("a-scene").addEventListener('click', function () {
                         playVideo();
                         this.style.display = 'none';
                     })
@@ -30,6 +30,7 @@
             }
 
             function playVideo () {
+                vid.playbackRate = 0.4;
                 vid.play();
                 videoShere.components.material.material.map.image.play();
             }
@@ -37,9 +38,6 @@
     </script>
 </head>
 <body>
-<div id="splash">
-    <div id="start-button">Start</div>
-</div>
 <a-scene>
     <a-assets>
         <video id="video" preload="auto"
