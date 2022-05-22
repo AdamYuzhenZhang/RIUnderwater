@@ -15,6 +15,8 @@
 
 <input type="text" id="demo3">reference accuracy <br>
 <input type="text" id="demo4">last accuracy <br>
+
+<input type="text" id="speed">speed m/s <br>
 <P id="demo5"></p>
 <script>
   var x = document.getElementById("demo");
@@ -22,6 +24,8 @@
   var z = document.getElementById("demo3");
   var q = document.getElementById("demo4");
   var q2 = document.getElementById("demo5");
+  var s = document.getElementById("speed");
+  var lat1, lon1, lat2, lon2, time1, time2 = 0;
 
 
   document.getElementById("measure").onclick = getLocation;
@@ -59,11 +63,14 @@
     } else {
       x.innerHTML = "Geolocation is not supported by this browser.";
     }
+    // get distance traveled
+    var distance = distanceInKmBetweenEarthCoordinates(lat1,lon1,lat2,lon2);
+    var time = time2 - time1;
+    var speed = speedFromDistance(distance, time);
+    s.value = speed;
   }
 
   function showPosition(position) {
-
-
     x.innerHTML = "Latitude: " + position.coords.latitude +
             "<br>Longitude: " + position.coords.longitude +
             "<br>Accuracy: " + position.coords.accuracy +
@@ -74,13 +81,12 @@
             "<br>Timestamp: " + position.timestamp  ;
 
     z.value = position.coords.accuracy;
-
-
+    lat1, lat2 = position.coords.latitude;
+    lon1, lon2 = position.coords.longitude;
+    time1, time2 = position.timestamp;
   }
 
   function showPosition2(position) {
-
-
     y.innerHTML = "Latitude: " + position.coords.latitude +
             "<br>Longitude: " + position.coords.longitude +
             "<br>Accuracy: " + position.coords.accuracy +
@@ -92,7 +98,12 @@
     //     window.document.body.onload = showPosition;
     q.value = position.coords.accuracy;
 
-
+    lat1 = lat2;
+    lat2 = position.coords.latitude;
+    lon1 = lon2;
+    lon2 = position.coords.longitude;
+    time1 = time2;
+    time2 = position.timestamp;
 
     if ( z.value > q.value){z.value = position.coords.accuracy;
       q2.innerHTML = position.coords.accuracy + " " +  position.coords.latitude + ' ' + position.coords.longitude + " the best accurancy with positon";
@@ -120,7 +131,28 @@
     }
   }
 
+  function degreesToRadians(degrees) {
+      return degrees * Math.PI / 180;
+  }
 
+  function distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
+      var earthRadiusKm = 6371;
+
+      var dLat = degreesToRadians(lat2-lat1);
+      var dLon = degreesToRadians(lon2-lon1);
+
+      lat1 = degreesToRadians(lat1);
+      lat2 = degreesToRadians(lat2);
+
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return earthRadiusKm * c;
+  }
+
+  function speedFromDistance(distanceInKm, timeInSeconds) {
+      return distanceInKm * 1000 / timeInSeconds;
+  }
 
 </script>
 
